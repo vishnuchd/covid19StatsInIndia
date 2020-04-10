@@ -18,14 +18,14 @@
     "axios": "^0.19.2",
     "moment": "^2.24.0",
     "nativescript-ui-chart": "^7.1.1",
-    "nativescript-ui-listview": "^8.0.1",
+    "nativescript-ui-listview": "^8.1.2",
     "nativescript-vue": "~2.4.0",
     "tns-core-modules": "~6.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@types/node": "^13.11.0",
+    "@babel/preset-env": "^7.9.5",
+    "@types/node": "^13.11.1",
     "babel-loader": "^8.1.0",
     "nativescript-dev-webpack": "^1.5.1",
     "nativescript-vue-template-compiler": "~2.4.0",

@@ -2,92 +2,62 @@
 
     <Page>
         <ActionBar title="Covid 19 Stats India">
-         
+
         </ActionBar>
         <StackLayout orientation="vertical">
-            <TextView hint="Filter"  @textChange="onTextChange"/>
-        <RadListView ref="listView" for="item in this.items"
-                     margin="5"
-                     @itemTap="this.onItemTap"
+            <TextView hint="Filter" @textChange="onTextChange"/>
+            <RadListView ref="listView" for="item in this.items"
+                         margin="5"
+                         @itemTap="this.onItemTap">
+                <v-template>
+                    <CardView class="cardStyle" elevation="3" ios:shadowRadius="3" margin="5" radius="5">
+                        <StackLayout>
+                            <Label :text="item.district" class="stateName"/>
 
-        >
-            <v-template>
-                <CardView class="cardStyle" elevation="3" ios:shadowRadius="3" margin="5" radius="5" >
-                    <StackLayout>
-                    <Label :text="item.district" class="stateName"/>
-<!--                        <StackLayout orientation="horizontal">-->
-<!--                            <Label text="Last updated on:" class="lastUpdate"/>-->
-<!--                            <Label :text="item.lastupdatedtime" class="lastUpdate"/>-->
+                            <GridLayout columns="*, *" rows="80, 80">
+                                <StackLayout row="0" col="0" backgroundColor="#FFCDD2" class="container" margin="5">
+                                    <Label text="Confirmed" class="labelText"/>
+                                    <Label :text="item.confirmed" class="counter"/>
 
-<!--                        </StackLayout>-->
-                    <GridLayout columns="*, *" rows="80, 80" >
-                        <StackLayout  row="0" col="0" backgroundColor="#FFCDD2" class="container" margin="5" >
-                            <Label text="Confirmed" class="labelText"  />
-                            <Label :text="item.confirmed"  class="counter"/>
+                                </StackLayout>
+                                <StackLayout row="0" col="1" backgroundColor="#BBDEFB" class="container" margin="5">
+                                    <Label text="Active" class="labelText"/>
+                                    <Label :text="item.active" class="counter"/>
+                                </StackLayout>
+                                <StackLayout row="1" col="0" backgroundColor="#C8E6C9" class="container" margin="5">
 
+                                    <Label text="Recovered" class="labelText"/>
+                                    <Label :text="item.recovered" class="counter"/>
+                                </StackLayout>
+                                <StackLayout row="1" col="1" backgroundColor="#FFECB3" class="container" margin="5">
+
+                                    <Label text="Deaths" class="labelText"/>
+                                    <Label :text="item.deaths" class="counter"/>
+                                </StackLayout>
+
+                            </GridLayout>
                         </StackLayout>
-                        <StackLayout  row="0" col="1" backgroundColor="#BBDEFB" class="container" margin="5">
-                            <Label text="Active" class="labelText"  />
-                            <Label :text="item.active" class="counter" />
-                        </StackLayout>
-                        <StackLayout  row="1" col="0" backgroundColor="#C8E6C9" class="container" margin="5">
+                    </CardView>
 
-                            <Label text="Recovered" class="labelText"  />
-                            <Label :text="item.recovered"  class="counter"/>
-                        </StackLayout>
-                        <StackLayout  row="1" col="1" backgroundColor="#FFECB3" class="container" margin="5">
-
-                            <Label text="Deaths" class="labelText"  />
-                            <Label :text="item.deaths"  class="counter"/>
-                        </StackLayout>
-
-                    </GridLayout>
-                    </StackLayout>
-                </CardView>
-
-            </v-template>
-        </RadListView>
+                </v-template>
+            </RadListView>
         </StackLayout>
-        <!--        <RadListView ref="mylistView"-->
-        <!--                     for="item in items"-->
-        <!--                     layout="grid"-->
-        <!--                     gridSpanCount="2">-->
-        <!--            <v-template>-->
-        <!--                ...-->
-        <!--            </v-template>-->
-        <!--        </RadListView>-->
     </Page>
 </template>
 
 <script>
-    import color from "color"
     import axios from "axios";
+
     export default {
         props: ['state'],
         data() {
             return {
                 items: [],
                 filteredItem: [],
-                confirmed:'',
-                active:'',
-                recovered:'',
-                deaths:''
             }
         },
-        computed: {
-            message() {
-                return "Blank {N}-Vue app";
-            }
-        },
-        methods:{
-            onTap(){
-              //  this.$navigateTo(App)
-            },
-            // onItemTap({ index, object }){
-            //     const itemSelected = this.itemList.getItem(index);
-            //     console.log(`Item selected: ${itemSelected.name}`);
-            // },
-            callApi(){
+        methods: {
+            callApi() {
                 axios({
                     method: 'GET',
                     url: 'https://api.covid19india.org/v2/state_district_wise.json',
@@ -95,45 +65,36 @@
                         'Content-Type': 'application/json',
                     },
                 }).then(result => {
-                   //console.log(result.data.statewise[0].confirmed);
-                   //  this.confirmed=result.data.statewise[0].confirmed;
-                   //  this.active=result.data.statewise[0].active;
-                   //  this.recovered=result.data.statewise[0].recovered;
-                   //  this.deaths=result.data.statewise[0].deaths;
-                    this.items=result.data.find((o) => o.state === this.$props.state).districtData;
-                    //this.items.indexOf("kerala");
-                  //  console.log( this.items.findIndex(x => x.state === 'Punjab'));
-                    console.log( this.items.find((o) => o.state === this.$props.state));
+                    this.items = result.data.find((o) => o.state === this.$props.state).districtData;
                 }, error => {
-                    console.error(error);
+                    //console.error(error);
                     alert(error)
                 });
             },
             refreshList(args) {
                 const pullRefresh = args.object;
                 this.callApi();
-                setTimeout(function() {
+                setTimeout(function () {
 
                     pullRefresh.refreshing = false;
                 }, 1000);
             },
             onTextChange(args) {
                 let view = args.object;
-                //result.data.find((o) => o.state === this.$props.state).districtData
-                if(this.filteredItem.length===0) {
+                if (this.filteredItem.length === 0) {
                     this.filteredItem = this.items;
                 }
-                if(view.text!=='') {
+                if (view.text !== '') {
                     this.items = this.items.filter(c => c.district.toLowerCase().indexOf(view.text.toLowerCase()) > -1);
-                }else{
-                    this.items=this.filteredItem;
-                    this.filteredItem=[];
+                } else {
+                    this.items = this.filteredItem;
+                    this.filteredItem = [];
                 }
                 console.log(this.items)
             }
 
         },
-        mounted(){
+        mounted() {
             this.callApi()
             console.log(this.$props.state)
         }
@@ -148,22 +109,25 @@
     .fas {
         @include colorize($color: accent);
     }
+
     .container {
         border-radius: 5;
     }
 
-    .labelText{
+    .labelText {
         font-size: 14;
         font-family: regular;
-        color:"black";
+        color: "black";
     }
-    .stateName{
+
+    .stateName {
         horizontal-align: left;
         font-size: 14;
         font-family: regular;
         font-weight: bold;
     }
-    .lastUpdate{
+
+    .lastUpdate {
         horizontal-align: left;
         font-size: 12;
         font-family: regular;
@@ -171,12 +135,12 @@
     }
 
 
-
     .counter {
         font-size: 16;
         font-weight: bold;
         color: black;
     }
+
     TextView {
 
         font-size: 14;

@@ -34,22 +34,15 @@
 
         </StackLayout>
         </PullToRefresh>
-        <!--        <RadListView ref="mylistView"-->
-        <!--                     for="item in items"-->
-        <!--                     layout="grid"-->
-        <!--                     gridSpanCount="2">-->
-        <!--            <v-template>-->
-        <!--                ...-->
-        <!--            </v-template>-->
-        <!--        </RadListView>-->
+
     </Page>
 </template>
 
 <script>
-    import color from "color"
     import axios from "axios";
     import Detail from "./Detail.vue";
     import Chart from "./Chart";
+
     export default {
 
         data() {
