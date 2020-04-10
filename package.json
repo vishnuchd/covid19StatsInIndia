@@ -1,0 +1,39 @@
+{
+  "nativescript": {
+    "id": "com.infostride.covid",
+    "tns-android": {
+      "version": "6.3.1"
+    },
+    "tns-ios": {
+      "version": "6.3.0"
+    }
+  },
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "repository": "<fill-your-repository-here>",
+  "dependencies": {
+    "@nativescript/theme": "~2.2.1",
+    "@nstudio/nativescript-cardview": "^1.0.0",
+    "@nstudio/nativescript-pulltorefresh": "^1.1.1",
+    "axios": "^0.19.2",
+    "moment": "^2.24.0",
+    "nativescript-ui-chart": "^7.1.1",
+    "nativescript-ui-listview": "^8.0.1",
+    "nativescript-vue": "~2.4.0",
+    "tns-core-modules": "~6.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@types/node": "^13.11.0",
+    "babel-loader": "^8.1.0",
+    "nativescript-dev-webpack": "^1.5.1",
+    "nativescript-vue-template-compiler": "~2.4.0",
+    "node-sass": "^4.7.1",
+    "tns-platform-declarations": "^6.0.0",
+    "typescript": "^3.2.4",
+    "vue-loader": "~15.4.0"
+  },
+  "gitHead": "fa98f785df3fba482e5e2a0c76f4be1fa6dc7a14",
+  "readme": "NativeScript Application"
+}
