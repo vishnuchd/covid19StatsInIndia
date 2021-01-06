@@ -15,7 +15,7 @@
     "@nativescript/theme": "~2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
     "@nstudio/nativescript-pulltorefresh": "^1.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "moment": "^2.24.0",
     "nativescript-ui-chart": "^7.1.1",
     "nativescript-ui-listview": "^8.1.2",
